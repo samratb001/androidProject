@@ -1,6 +1,7 @@
 package com.example.realmproject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {  /
     private Context context;
     private final String TAG="Experiment";
     private int count;
-
+    private String[] colors={"#4287f5","#4bf542","#f5f242","#e32424"};
     MyAdapter(RealmResults<MyPerson> persons,Context con) {  //have to create by own
         myPersonRealmResults = persons;
         context = con;
@@ -42,6 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {  /
          holder.roll.setText(String.valueOf(myPerson.getRoll()));
          holder.phone.setText(myPerson.getPhone());
          holder.gender.setText(myPerson.getGender());
+         holder.itemView.findViewById(R.id.category_image).setBackgroundColor(Color.parseColor(colors[position%4]));
     }
 
     @Override
