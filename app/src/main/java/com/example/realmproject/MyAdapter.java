@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {  /
     private Context context;
     private final String TAG="Experiment";
     private int count;
+    private ImageView img_view;
     private String[] colors={"#4287f5","#4bf542","#f5f242","#e32424"};
     MyAdapter(RealmResults<MyPerson> persons,Context con) {  //have to create by own
         myPersonRealmResults = persons;
@@ -36,13 +38,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {  /
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        img_view=holder.itemView.findViewById(R.id.img_view);
         Log.i(TAG, "onBindViewHolder: Triggered");
          MyPerson myPerson=myPersonRealmResults.get(position);
          holder.name.setText(myPerson.getName());
-         holder.dept.setText(myPerson.getDept());
-         holder.roll.setText(String.valueOf(myPerson.getRoll()));
-         holder.phone.setText(myPerson.getPhone());
+         holder.dept.setText("Department :"+myPerson.getDept());
+         holder.roll.setText("ROLL :"+String.valueOf(myPerson.getRoll()));
+         holder.phone.setText("PH NO :+91 "+myPerson.getPhone());
          holder.gender.setText(myPerson.getGender());
+         if(myPerson.getGender().toString().equals("Male"))
+            img_view.setImageResource(R.drawable.avatar_male);
+         else
+             img_view.setImageResource(R.drawable.avatar_girl);
          holder.itemView.findViewById(R.id.category_image).setBackgroundColor(Color.parseColor(colors[position%4]));
     }
 
